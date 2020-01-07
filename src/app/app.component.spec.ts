@@ -1,6 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { BannerComponent } from './banner/banner.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -9,13 +10,17 @@ describe('AppComponent', () => {
         RouterTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        BannerComponent
       ],
     }).compileComponents();
   }));
 
   it('should create the app', () => {
+    // createComponent 包含了模板、class 實例
+    // 呼叫 createComponent 之後不能再呼叫任何 TestBed 的後續配置方法
     const fixture = TestBed.createComponent(AppComponent);
+    // componentInstance => TestBed.createComponent 建立的元件類例項
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });
