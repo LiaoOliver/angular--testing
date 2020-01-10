@@ -30,13 +30,13 @@ describe('Service: App', () => {
       ]
     });
 
-    // 透過呼叫 TestBed.get(引數為一個 service) 存入到區域變數上 給測試取用
+    // 透過呼叫 TestBed.get(引數為一個 service) 存入到區域變數上 給測試取用 (實體化)
     testBedService = TestBed.get(AppService);
     testBedDataServiceSpy = TestBed.get(DataService);
 
   });
 
-  // # 不帶測試機床的協助
+  // # 不帶測試機床的協助 沒有依賴其他服務
   it('# without TestBed getValue', ()=>{
     expect(withoutTestBedService.getValue(4,5)).toBe(9);
   })
@@ -73,5 +73,19 @@ describe('Service: App', () => {
     testBedDataServiceSpy.getData.and.returnValue(stubValue);
     expect(testBedDataServiceSpy.getData().length).toBe(4)
   })
+
+  // ## test response from Observable 取得觀察者測試
+  it('should return "promise Clover" call getPromiseValie()', () => {
+    testBedService.getObservableValue().subscribe(response => {
+      expect(response).toBe('observable Clover')
+    })
+  })
+
+  // ## test response from Promise 取得 promise 測試
+  it('should return "observable Clover" call getObservableValue().', () => {
+    testBedService.getPromiseValue().then(response => {
+      expect(response).toBe('promise value')
+    })
+  });
 
 });
